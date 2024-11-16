@@ -3,16 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer.*;
-public class applicationOfALoop extends JFrame implements Runnable, KeyListener
+public class Starfield extends JFrame implements Runnable, KeyListener
 {
     Container con = getContentPane();
     Thread t = new Thread(this);
     int exampleInteger = 0;
     boolean exampleBoolean=true;
     boolean isPaused = true;
+    int[] skyOfStarsX = new int[100], skyOfStarsY = new int[100]; // initialize the sky of stars
     Image exampleImage;
     Image exampleSplash;
-    public applicationOfALoop()
+    public Starfield()
     {
         addKeyListener(this);
 
@@ -50,7 +51,6 @@ public class applicationOfALoop extends JFrame implements Runnable, KeyListener
         }
         if(e.getKeyCode()==32)//space
         {
-            exampleBoolean = false;
         }
         if(e.getKeyCode()==70)//f
         {
@@ -69,6 +69,14 @@ public class applicationOfALoop extends JFrame implements Runnable, KeyListener
 
     public void run()
     {
+        for(int i=0; i<skyOfStarsX.length-1; i++){
+            skyOfStarsX[i] = (int)(1000*Math.random());
+        }
+
+        for(int ii=0; ii<skyOfStarsY.length-1; ii++){
+            skyOfStarsY[ii] = (int)(1000*Math.random());
+        }
+
         try{
             while(true)
             {
@@ -86,21 +94,24 @@ public class applicationOfALoop extends JFrame implements Runnable, KeyListener
     {
         Image i=createImage(getSize().width, getSize().height);
         Graphics2D g2 = (Graphics2D)i.getGraphics();
-        g2.setColor(new Color(213,160,91));
-
+        g2.setColor(new Color(0,0,0)); // this creates our black background
 
         g2.fillRect(0,0,1000,1000);
-        Graphics2D g3 = (Graphics2D)i.getGraphics();
-        if(exampleBoolean){
-            //g2.drawImage(exampleSplash,0,0,this);
+
+        g2.setColor(new Color(255,255,255));
+        for(int index=0; index<skyOfStarsX.length-1; index++){
+            g2.fillRect(skyOfStarsX[index], skyOfStarsY[index], 1, 1);
         }
+
+
+        Graphics2D g3 = (Graphics2D)i.getGraphics();
         g2.dispose();
-        //gr.drawImage(i, 0, 0, this);
+        gr.drawImage(i, 0, 0, this);
     }
 
     public static void main(String[] args)
     {
-        applicationOfALoop frame = new applicationOfALoop();
+        Starfield frame = new Starfield();
         frame.setSize(1000, 650);
         frame.setVisible(true);
     }

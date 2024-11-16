@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer.*;
-public class applicationOfALoop extends JFrame implements Runnable, KeyListener
+public class loopingCanvas extends JFrame implements Runnable, KeyListener
 {
     Container con = getContentPane();
     Thread t = new Thread(this);
@@ -12,9 +12,15 @@ public class applicationOfALoop extends JFrame implements Runnable, KeyListener
     boolean isPaused = true;
     Image exampleImage;
     Image exampleSplash;
-    public applicationOfALoop()
+    public loopingCanvas()
     {
         addKeyListener(this);
+
+        //exampleImage= Toolkit.getDefaultToolkit().getImage(getClass().getResource("explosion.gif"));
+        //exampleImage= exampleImage.getScaledInstance(200,200,1);
+
+        //exampleSplash= Toolkit.getDefaultToolkit().getImage(getClass().getResource("Instructions.gif"));
+        //exampleSplash= exampleSplash.getScaledInstance(1000,650,1);
 
         con.setLayout(new FlowLayout());
         t.start();
@@ -100,7 +106,7 @@ public class applicationOfALoop extends JFrame implements Runnable, KeyListener
 
     public static void main(String[] args)
     {
-        applicationOfALoop frame = new applicationOfALoop();
+        loopingCanvas frame = new loopingCanvas();
         frame.setSize(1000, 650);
         frame.setVisible(true);
     }
